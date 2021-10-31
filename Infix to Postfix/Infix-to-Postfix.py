@@ -1,9 +1,18 @@
-class poshte:
+'''
+  File:  infix2postfix.py
+  Description:  Converting infix expression to postfix expression using stack
+  Author:
+  Student number:
+'''
+
+
+class Stack:
     def __init__(self):
         self.b = []
 
-    def count(self):
 
+
+    def count(self):
         return len(self.b)
 
     def is_empty(self):
@@ -12,43 +21,34 @@ class poshte:
         else:
             return False
 
-    def set(self, a):
-        self.b = a
-
-    def push(self, v):
-        self.b.append(v)
+    def push(self, e):
+        self.b.append(e)
 
     def top(self):
-
         try:
             self.i = len(self.b) - 1
             return self.b[self.i]
         except:
-            return "stack is empty"
+            return Exception
+
 
     def pop(self):
-
         try:
             self.i = len(self.b) - 1
             self.j = self.b[self.i]
             del self.b[self.i]
             return self.j
         except:
-            return "stack is empty"
+            return Exception
+
 
     def clear(self):
-
-        # self.i=0
         while len(self.b) != 0:
             del self.b[0]
 
 
 
-
-if __name__ == "__main__":
-
-    # print("please enter your sentence")
-    # a=str(input("please enter your sentence:"))
+def infix_to_postfix(infix):
     o = poshte()
     a = str(input("please enter your sentence:"))
     i = 0
@@ -78,13 +78,13 @@ if __name__ == "__main__":
                 o.push(a[i])
 
 
-            elif  a[i] == '-':
+            elif a[i] == '-':
                 while True:
-                    if o.top()=='-' or o.top()=="+"or o.top()=="*"or o.top()=="*":
+                    if o.top() == '-' or o.top() == "+" or o.top() == "*" or o.top() == "*":
                         sen = sen + o.pop()
 
-                    else:break
-
+                    else:
+                        break
 
                 o.push(a[i])
 
@@ -92,7 +92,7 @@ if __name__ == "__main__":
 
             elif a[i] == '+':
                 while True:
-                    if o.top() == '-' or o.top() == "+"or o.top()=="*"or o.top()=="*":
+                    if o.top() == '-' or o.top() == "+" or o.top() == "*" or o.top() == "*":
                         sen = sen + o.pop()
 
                     else:
@@ -118,7 +118,8 @@ if __name__ == "__main__":
                     if o.top() == '*' or o.top() == "/":
                         sen = sen + o.pop()
 
-                    else:break
+                    else:
+                        break
 
                 o.push(a[i])
 
@@ -132,3 +133,9 @@ if __name__ == "__main__":
         sen = sen + o.pop()
 
     print(sen)
+
+
+
+if __name__ == "__main__":
+    expr = input()
+    print(infix_to_postfix(expr))
